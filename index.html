@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BisaJasa.id — Digitalisasi Desa & UMKM Sederhana</title>
+  <meta name="description" content="Solusi website & sistem sederhana untuk desa, UMKM, dan administrasi lokal. Cepat, rapi, dan gampang dipamerin." />
+  <meta name="author" content="BisaJasa.id" />
+
+  <!-- Styles: single-file, no external fonts for simple deploy -->
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --muted:#9aa4b2;
+      --accent1:#6ee7b7;
+      --accent2:#60a5fa;
+      --glass: rgba(255,255,255,0.04);
+      --glass-strong: rgba(255,255,255,0.06);
+      --glass-border: rgba(255,255,255,0.06);
+      --radius:14px;
+      --maxw:1100px;
+      --shadow: 0 6px 18px rgba(2,6,23,0.6);
+      color-scheme: dark;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg,#071226 0%, #081025 40%, #06111a 100%);
+      color: #e6eef8;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      padding:0 20px;
+    }
+    .wrap{max-width:var(--maxw);margin:28px auto;}
+
+    /* NAV */
+    header{
+      position:sticky; top:14px; z-index:80;
+      backdrop-filter: blur(6px);
+      background: linear-gradient(180deg, rgba(10,14,20,0.30), rgba(8,12,18,0.12));
+      border:1px solid var(--glass-border);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      padding:10px 14px;
+    }
+    nav{display:flex;align-items:center;gap:12px;justify-content:space-between;max-width:var(--maxw);margin:0 auto;}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{
+      width:44px;height:44px;border-radius:10px;
+      display:grid;place-items:center;
+      background:linear-gradient(135deg,var(--accent2),var(--accent1));
+      box-shadow: 0 6px 20px rgba(32,64,128,0.14);
+      color:#071226;font-weight:700;font-size:18px;
+    }
+    .brand h1{margin:0;font-size:16px;letter-spacing:0.2px}
+    .brand p{margin:0;font-size:12px;color:var(--muted)}
+
+    .nav-links{display:flex;gap:10px;align-items:center}
+    .nav-links a{
+      color:var(--muted); text-decoration:none; font-size:14px; padding:8px 10px; border-radius:10px;
+    }
+    .nav-links a:hover{color: #e6eef8; background:var(--glass); transform:translateY(-2px); transition: all .18s ease}
+
+    .btn-primary{
+      background: linear-gradient(90deg,var(--accent1),var(--accent2));
+      color:#06111a; padding:10px 14px; border-radius:10px; font-weight:700; text-decoration:none;
+      box-shadow: 0 8px 26px rgba(96,165,250,0.12);
+    }
+    .btn-ghost{border:1px solid var(--glass-border); padding:8px 12px;border-radius:10px;color:var(--muted); text-decoration:none}
+    .btn-ghost:hover{color:#e6eef8; transform:translateY(-2px)}
+
+    /* HERO */
+    .hero{
+      margin-top:24px;
+      display:grid;
+      grid-template-columns: 1fr 420px;
+      gap:28px;
+      align-items:center;
+    }
+    .hero-card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius: var(--radius);
+      padding:28px;
+      border:1px solid var(--glass-border);
+      box-shadow: var(--shadow);
+    }
+    .eyebrow{display:inline-block;background:rgba(255,255,255,0.03);padding:6px 10px;border-radius:999px;color:var(--accent1);font-weight:700;margin-bottom:14px;font-size:13px}
+
+    h2{margin:0 0 12px 0;font-size:28px;line-height:1.06}
+    p.lead{color:var(--muted);margin:0 0 18px 0;font-size:15px}
+
+    .hero-cta{display:flex;gap:12px;margin-top:8px}
+    .features-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}
+    .feature{
+      background:var(--glass);padding:12px;border-radius:10px;display:flex;gap:10px;align-items:center;
+      transition: transform .18s ease, background .18s ease;
+      border:1px solid transparent;
+    }
+    .feature:hover{transform:translateY(-6px); background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.04)}
+    .feature svg{width:34px;height:34px;flex-shrink:0}
+
+    /* DEMO CARD */
+    .preview{
+      border-radius:12px;
+      overflow:hidden;
+      border:1px solid var(--glass-border);
+      background: linear-gradient(180deg,#071225 0%, #05101a 100%);
+      padding:18px;
+      box-shadow: 0 10px 30px rgba(2,6,23,0.7);
+    }
+    .mock-browser{
+      background: linear-gradient(180deg,#061223, #081426); border-radius:10px; padding:14px; color:var(--muted);
+    }
+    .mock-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+    .dot{width:10px;height:10px;border-radius:999px;background:#ff6b6b;box-shadow:0 0 8px rgba(255,100,100,0.12)}
+    .mock-screenshot{height:220px;border-radius:8px; background: linear-gradient(90deg,#052a35,#082036); display:grid; place-items:center; color:var(--muted); font-weight:700}
+    .mock-screenshot small{color:var(--muted);font-weight:400}
+
+    /* SERVICES */
+    section.services{margin-top:28px}
+    .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .service-card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      padding:18px;border-radius:12px;border:1px solid var(--glass-border);
+      transition: transform .2s cubic-bezier(.2,.9,.3,1), box-shadow .2s;
+      cursor:default;
+    }
+    .service-card:hover{transform:translateY(-10px); box-shadow: 0 18px 36px rgba(3,10,30,0.6)}
+    .service-card h3{margin:8px 0 6px 0;font-size:16px}
+    .service-card p{margin:0;color:var(--muted);font-size:13px}
+
+    /* USE CASE strip */
+    .strip{
+      margin-top:28px;padding:18px;border-radius:12px;border:1px dashed rgba(255,255,255,0.03);
+      display:flex;gap:12px;align-items:center;background: linear-gradient(90deg, rgba(96,165,250,0.03), rgba(110,231,183,0.02));
+    }
+    .strip .k{font-weight:700;color:var(--accent1)}
+    .strip p{margin:0;color:var(--muted)}
+
+    /* CARDS + TESTIMONIAL */
+    .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:18px}
+    .mini-card{background:var(--card);padding:12px;border-radius:10px;border:1px solid var(--glass-border)}
+    .testimonial{background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:16px;border-radius:12px;border:1px solid var(--glass-border)}
+    .test-name{font-weight:700;margin-top:10px}
+
+    /* CONTACT */
+    footer{
+      margin-top:28px;padding:18px;border-radius:12px;background:linear-gradient(180deg,#041022,#021018);
+      display:flex;gap:18px;align-items:center;justify-content:space-between;border:1px solid var(--glass-border);
+    }
+    .contact-actions{display:flex;gap:12px;align-items:center}
+
+    /* small screens */
+    @media (max-width:940px){
+      .hero{grid-template-columns:1fr; padding-bottom:12px}
+      .services-grid{grid-template-columns:repeat(2,1fr)}
+      .cards{grid-template-columns:1fr}
+    }
+    @media (max-width:560px){
+      .nav-links{display:none}
+      header{padding:12px}
+      .brand h1{font-size:14px}
+      .services-grid{grid-template-columns:1fr}
+    }
+
+    /* subtle text reveal hover */
+    .reveal{
+      position:relative; display:inline-block; cursor:pointer;
+    }
+    .reveal .hint{
+      position:absolute; left:0; top:100%; margin-top:10px; opacity:0; transform:translateY(6px);
+      background:rgba(2,6,23,0.96); color:#dbeafe; padding:8px 10px; border-radius:8px; font-size:13px;
+      white-space:nowrap; transition: all .18s ease;
+      box-shadow: 0 8px 22px rgba(2,6,23,0.6);
+      border:1px solid rgba(255,255,255,0.03)
+    }
+    .reveal:hover .hint{opacity:1; transform:translateY(2px)}
+
+    /* small animated underline for links */
+    .underline{
+      position:relative; color:var(--accent2); text-decoration:none; font-weight:700;
+    }
+    .underline:after{
+      content:""; position:absolute; left:0; bottom:-6px; height:3px; width:0%;
+      background:linear-gradient(90deg,var(--accent1),var(--accent2)); border-radius:4px; transition:width .24s ease;
+    }
+    .underline:hover:after{width:100%}
+
+    /* nice fade-in on scroll */
+    .fade{opacity:0; transform:translateY(8px); transition:all .6s cubic-bezier(.2,.8,.2,1) }
+    .fade.show{opacity:1; transform:none}
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="brand">
+        <div class="logo" aria-hidden="true">BJ</div>
+        <div>
+          <h1>BisaJasa.id</h1>
+          <p>Digitalisasi Desa • Website UMKM • Dashboard Sederhana</p>
+        </div>
+      </div>
+
+      <div class="nav-links" aria-hidden="true">
+        <a href="#service">Layanan</a>
+        <a href="#demo">Demo</a>
+        <a href="#harga">Paket</a>
+        <a href="#contact" class="btn-ghost">Kontak</a>
+      </div>
+
+      <div style="display:flex;gap:10px;align-items:center">
+        <a class="btn-primary" href="#contact">Minta Demo</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="wrap" role="main">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-card fade" id="heroCard">
+        <span class="eyebrow">BUAT LOKAL, KELIHATAN NASIONAL</span>
+        <h2>Website & Sistem Sederhana untuk <span style="color:var(--accent1)">Desa</span> dan <span style="color:var(--accent2)">UMKM</span></h2>
+        <p class="lead">BisaJasa.id bantu bikin tampilan rapi, dokumentasi kegiatan, dan dashboard UMKM yang gampang dipamerin ke dinas atau calon investor kecil. Cepat, ringan, dan bisa jalan dengan HP.</p>
+
+        <div class="hero-cta">
+          <a class="btn-primary" href="#contact">Minta Demo Gratis</a>
+          <a class="btn-ghost" href="#demo">Lihat Template</a>
+        </div>
+
+        <div class="features-grid" aria-hidden="true">
+          <div class="feature">
+            <!-- icon: checklist -->
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="2" y="3" width="20" height="18" rx="3" stroke="rgba(255,255,255,0.12)" stroke-width="1.2"/>
+              <path d="M8 11l2.2 2.2L16 7" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <div>
+              <div style="font-weight:700">Siap Laporan</div>
+              <div style="color:var(--muted);font-size:13px">Bisa jadi bahan laporan ke kecamatan / dinas.</div>
+            </div>
+          </div>
+
+          <div class="feature">
+            <!-- icon: speed -->
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M12 3v2" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+              <path d="M7 21l1.8-4.8" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+              <circle cx="12" cy="12" r="7" stroke="rgba(255,255,255,0.14)" stroke-width="1.2"/>
+            </svg>
+            <div>
+              <div style="font-weight:700">Ringan & Cepat</div>
+              <div style="color:var(--muted);font-size:13px">Jalan di HP, tidak perlu server mahal.</div>
+            </div>
+          </div>
+
+          <div class="feature">
+            <!-- icon: shield -->
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M12 3l6 3v5c0 5-3 9-6 10-3-1-6-5-6-10V6l6-3z" stroke="rgba(255,255,255,0.12)" stroke-width="1.2" fill="rgba(255,255,255,0.02)"/>
+            </svg>
+            <div>
+              <div style="font-weight:700">Aman</div>
+              <div style="color:var(--muted);font-size:13px">Data sederhana, backup mudah (Google Sheet).</div>
+            </div>
+          </div>
+
+          <div class="feature">
+            <!-- icon: repeat -->
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M21 12v6h-6" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M3 12v-6h6" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <div>
+              <div style="font-weight:700">Skalabel</div>
+              <div style="color:var(--muted);font-size:13px">Template yang bisa dipakai berkali-kali ke desa lain.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PREVIEW / MOCK -->
+      <aside class="preview fade" id="previewCard" aria-hidden="true">
+        <div class="mock-browser">
+          <div class="mock-top">
+            <div class="dot" title="close"></div>
+            <div style="width:8px"></div>
+            <div class="dot" style="background:#f6c85f"></div>
+            <div style="flex:1"></div>
+            <div style="font-size:12px;color:var(--muted)">demo.bisajasa.id</div>
+          </div>
+
+          <div class="mock-screenshot">
+            <div style="text-align:center;padding:8px">
+              <div style="font-size:20px;font-weight:700;margin-bottom:6px">Kab. Kabandungan</div>
+              <small>Website Profil • UMKM • Agenda • Dashboard</small>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:8px;margin-top:12px;justify-content:space-between;align-items:center">
+            <div style="display:flex;gap:8px">
+              <div style="font-size:13px;color:var(--muted)"><span style="color:var(--accent1);font-weight:700">120+</span> UMKM</div>
+              <div style="font-size:13px;color:var(--muted)"><span style="color:var(--accent2);font-weight:700">34</span> Kegiatan</div>
+            </div>
+            <div>
+              <a class="underline" href="#demo">Lihat Demo</a>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="services fade" id="service">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+        <div>
+          <h3 style="margin:0">Layanan yang kami tawarkan</h3>
+          <p style="margin:6px 0 0 0;color:var(--muted)">Solusi sederhana, hasil rapi yang bisa langsung dipamerin.</p>
+        </div>
+        <div class="reveal" style="font-size:13px;color:var(--muted)">
+          <span style="font-weight:700;color:var(--accent2)">Pilihan cepat</span>
+          <div class="hint">Pilih paket sesuai kebutuhan desa / UMKM</div>
+        </div>
+      </div>
+
+      <div class="services-grid" style="margin-top:12px">
+        <div class="service-card">
+          <!-- icon -->
+          <svg viewBox="0 0 24 24" width="36" height="36" style="float:right;opacity:0.12">
+            <path d="M3 12h18" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+          <h3>Website Profil Desa</h3>
+          <p>Profil, berita, galeri, dan agenda. Siap dipakai untuk laporan ke dinas.</p>
+        </div>
+
+        <div class="service-card">
+          <h3>Dashboard UMKM</h3>
+          <p>List UMKM, kontak, produk — data disimpan di Google Sheet yang bisa di-export.</p>
+        </div>
+
+        <div class="service-card">
+          <h3>Landing Kampanye / Event</h3>
+          <p>Halaman event khusus yang mudah dibagikan (QR + WA quick contact).</p>
+        </div>
+
+        <div class="service-card">
+          <h3>Dokumentasi & Fotografi Sederhana</h3>
+          <p>Pembuatan konten foto + deskripsi untuk feed/arsip program kegiatan.</p>
+        </div>
+
+        <div class="service-card">
+          <h3>Maintenance & Backup</h3>
+          <p>Pembaharuan konten bulanan & backup data sederhana (sheet/CSV).</p>
+        </div>
+
+        <div class="service-card">
+          <h3>White-label Template</h3>
+          <p>Template siap pakai yang bisa di-branding ulang untuk desa lain.</p>
+        </div>
+      </div>
+
+      <div class="strip" style="margin-top:16px">
+        <div style="width:48px;height:48px;border-radius:10px;background:linear-gradient(90deg,var(--accent1),var(--accent2));display:grid;place-items:center;font-weight:800;color:#041022">KP</div>
+        <div>
+          <div style="font-weight:700">Target: Kepala Desa & Pengurus</div>
+          <p style="margin:4px 0 0 0;color:var(--muted)">Pembuktian visual & administratif yang sederhana supaya wilayah terlihat "maju".</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEMO / PORTFOLIO -->
+    <section id="demo" class="fade" style="margin-top:28px">
+      <h3>Contoh Struktur Portofolio</h3>
+      <p style="color:var(--muted)">Satu domain → beberapa halaman yang meyakinkan: landing, demo desa, dashboard, dokumentasi.</p>
+
+      <div class="cards" style="margin-top:12px">
+        <div class="mini-card">
+          <strong>/desa-demo</strong>
+          <p style="margin:8px 0;color:var(--muted)">Halaman profil desa dengan kegiatan dan galeri. Gampang dipakai untuk laporan.</p>
+        </div>
+
+        <div class="mini-card">
+          <strong>/umkm-dashboard</strong>
+          <p style="margin:8px 0;color:var(--muted)">Dashboard sederhana dari Google Sheet: filter, kontak, status aktif.</p>
+        </div>
+
+        <div class="testimonial">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:52px;height:52px;border-radius:12px;background:linear-gradient(90deg,var(--accent2),var(--accent1));display:grid;place-items:center;color:#041022;font-weight:800">PJ</div>
+            <div>
+              <div style="font-weight:700">Pak Joko — Kadus</div>
+              <div style="color:var(--muted);font-size:13px">"Website ini bikin kerja kami kelihatan rapi. Camat langsung minta linknya saat rapat."</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mini-card">
+          <strong>Dokumentasi Kegiatan</strong>
+          <p style="margin:8px 0;color:var(--muted)">Halaman arsip foto & ringkasan kegiatan (foto + tanggal + output singkat).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PACKAGES -->
+    <section id="harga" class="fade" style="margin-top:28px">
+      <h3>Paket Awal (versi sampel)</h3>
+      <p style="color:var(--muted)">Harga contoh untuk diskusi awal; final price disesuaikan kebutuhan & jarak.</p>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px">
+        <div class="service-card" style="text-align:left">
+          <h3>Starter</h3>
+          <p style="font-weight:800;font-size:20px;margin:6px 0">Rp 1.200.000</p>
+          <p style="color:var(--muted)">Landing + Profil Desa + 1 bulan maintenance</p>
+        </div>
+
+        <div class="service-card">
+          <h3>Standard</h3>
+          <p style="font-weight:800;font-size:20px;margin:6px 0">Rp 2.500.000</p>
+          <p style="color:var(--muted)">Starter + Dashboard UMKM + 2 bulan maintenance</p>
+        </div>
+
+        <div class="service-card">
+          <h3>Pro</h3>
+          <p style="font-weight:800;font-size:20px;margin:6px 0">Rp 4.500.000</p>
+          <p style="color:var(--muted)">Standard + Dokumentasi event + 3 bulan maintenance</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <footer id="contact" class="fade">
+      <div>
+        <div style="font-weight:800;font-size:18px">Siap bantuin digitalisasi wilayahmu</div>
+        <div style="color:var(--muted);margin-top:6px">Kirim pesan singkat untuk jadwalkan demo & presentasi — gratis.</div>
+      </div>
+
+      <div class="contact-actions">
+        <!-- WA quick link: ganti nomor -->
+        <a class="btn-primary" href="https://wa.me/6281234567890?text=Saya%20mau%20demo%20BisaJasa.id%20untuk%20desa%20saya" target="_blank" rel="noopener">Chat WA</a>
+        <a class="btn-ghost" href="mailto:halo@bisajasa.id">halo@bisajasa.id</a>
+      </div>
+    </footer>
+
+    <div style="text-align:center;color:var(--muted);font-size:13px;margin:18px 0 50px 0">
+      © <span id="year"></span> BisaJasa.id — dibuat oleh tim kecil. Template ini bisa diadaptasi & di-white-label.
+    </div>
+  </main>
+
+  <!-- Scripts -->
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Simple scroll reveal
+    const faders = document.querySelectorAll('.fade');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if(e.isIntersecting) e.target.classList.add('show');
+      });
+    }, {threshold: 0.12});
+    faders.forEach(f => io.observe(f));
+
+    // Smooth scroll for nav links
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', function(e){
+        const target = document.querySelector(this.getAttribute('href'));
+        if(target){
+          e.preventDefault();
+          target.scrollIntoView({behavior:'smooth', block:'start'});
+        }
+      })
+    });
+
+    // Small dynamic interactions: mock screenshot text change on hover over features
+    const features = document.querySelectorAll('.feature');
+    const mockText = document.querySelector('.mock-screenshot div');
+    if(features && mockText){
+      features.forEach((f, i) => {
+        f.addEventListener('mouseenter', ()=> {
+          const map = [
+            'Profil desa: rapi & profesional',
+            'Dashboard UMKM: data jelas',
+            'Backup data: Google Sheet',
+            'Template: bisa di-reuse'
+          ];
+          mockText.innerHTML = '<div style="font-size:20px;font-weight:700;margin-bottom:6px">' + (map[i]||'BisaJasa.id') + '</div><small>Preview cepat</small>';
+        });
+        f.addEventListener('mouseleave', ()=> {
+          mockText.innerHTML = '<div style="font-size:20px;font-weight:700;margin-bottom:6px">Kab. Kabandungan</div><small>Website Profil • UMKM • Agenda • Dashboard</small>';
+        });
+      });
+    }
+
+    // Small accessibility: focus states
+    document.querySelectorAll('a, button').forEach(el=>{
+      el.addEventListener('focus', ()=> el.style.outline = '2px solid rgba(96,165,250,0.18)');
+      el.addEventListener('blur', ()=> el.style.outline = 'none');
+    });
+
+    // Optional: if running on small screens, collapse nav (very simple)
+    // (Keperluan sementara: hide nav on mobile is already CSS-based)
+  </script>
+</body>
+</html>
